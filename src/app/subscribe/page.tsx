@@ -6,7 +6,16 @@ import Link from 'next/link'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '')
 
-const plans = {
+interface Plan {
+  name: string
+  price: number
+  priceId: string
+  desc: string
+  popular?: boolean
+  features: string[]
+}
+
+const plans: Record<string, Plan> = {
   individual: {
     name: 'Individual',
     price: 49,
