@@ -6,21 +6,13 @@ import Link from 'next/link'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '')
 
-interface Plan {
-  name: string
-  price: number
-  priceId: string
-  desc: string
-  popular?: boolean
-  features: string[]
-}
-
-const plans: Record<string, Plan> = {
+const plans = {
   individual: {
     name: 'Individual',
     price: 49,
     priceId: 'price_individual_monthly',
     desc: 'For analysts and researchers',
+    popular: false,
     features: [
       'Monthly market reports',
       'Weekly newsletter',
@@ -46,6 +38,7 @@ const plans: Record<string, Plan> = {
     price: 499,
     priceId: 'price_enterprise_monthly',
     desc: 'For institutional investors',
+    popular: false,
     features: [
       'Everything in Professional',
       'Custom research requests',
@@ -53,7 +46,7 @@ const plans: Record<string, Plan> = {
       'Dedicated account manager'
     ]
   },
-}
+} as const
 
 export default function SubscribePage() {
   const [loading, setLoading] = useState<string | null>(null)
